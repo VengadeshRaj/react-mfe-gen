@@ -1,4 +1,4 @@
-export const getContainerHeart=(containerName='container')=>{
+export const getHeartContent=(containerName='container')=>{
     return `
 import React from "react";
 
