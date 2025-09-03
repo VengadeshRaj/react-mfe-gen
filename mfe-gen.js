@@ -1,12 +1,32 @@
 import inquirer from "inquirer";
-import { PROMPTS } from "./constants.js";
+import { PROMPT, getInfoMessage } from "./constants.js";
+import utils from "./utility.js";
 
 const mfeGen = async () => {
-  console.log(
-    "👋 Hi there!\n\n⚙️ This tool currently supports micro-frontend creation with runtime integration through custom script injection.\n📌 Please consider this limitation when developing your MFE applications using this tool.\n"
-  );
-  const result = await inquirer.prompt(PROMPTS);
+  console.log(getInfoMessage().disclaimer);
 
-  console.log("result", result);
+  const { typeOfAction, language } = await inquirer.prompt(PROMPT.USER_NEED);
+  switch (typeOfAction) {
+    case "Create a new project":
+      newProjectCreation(language);
+      break;
+    case "Create only a container":
+      conatinerCreation(language);
+      break;
+    case "Create a single micro-frontend":
+      singleMfeCreation(language);
+      break;
+  }
 };
+
+const newProjectCreation = async(language) => {
+    const { projectName, projectDescription,numberOfMfes } = await inquirer.prompt(PROMPT.ENTIRE_PROJECT);
+
+    const { styling, stateManagement,formManagement } = await inquirer.prompt(PROMPT.COMMON);
+    await utils.runTask(getInfoMessage());
+
+};
+const conatinerCreation = (language) => {};
+const singleMfeCreation = (language) => {};
+
 export default mfeGen;
