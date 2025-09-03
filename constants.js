@@ -12,8 +12,12 @@ export const QUESTION = {
   CONTAINER_DESCRIPTION: "Enter a description for your container app:",
   STYLING: "Select a styling solution:",
   STATE_MANAGEMENT: "Select a state management library:",
-  FORM_MANAGEMENT: "Select a form management library:",
   CONDITIONAL_MFE_NAME: "Enter your micro-frontend name:",
+  CONTAINER_PATH:
+    "Please enter a path to create container:\ne.g: G:\\workspace\\sample-container",
+  MFE_PATH:
+    "Please enter a path to create container:\ne.g: G:\\workspace\\sample-mfe",
+  PATH: "Please enter a path to create ",
 };
 
 export const PROMPT = {
@@ -100,26 +104,34 @@ export const PROMPT = {
       name: "stateManagement",
       choices: ["None", "Redux", "Zustand"],
     },
-    {
-      message: QUESTION.FORM_MANAGEMENT,
-      type: "list",
-      name: "formManagement",
-      choices: ["None", "React Hook Form", "Formik"],
-    },
   ],
   CONDITIONAL: {
     MICROFRONT_END_NAME: {
       message: QUESTION.CONDITIONAL_MFE_NAME,
       type: "input",
-      name: "projectName",
+      name: "mfeName",
     },
+    CONTAINER_PATH: {
+      message: QUESTION.CONTAINER_PATH,
+      type: "input",
+      name: "containerPath",
+    },
+     MFE_PATH: {
+      message: QUESTION.MFE_PATH,
+      type: "input",
+      name: "mfePath",
+    }
   },
 };
 
-export const getInfoMessage = (value) => ({
-  disclaimer:
+export const INFO_MESSAGE = {
+  DISCLAIMER:
     "👋 Hi there!\n\n⚙️ This tool currently supports micro-frontend creation with runtime integration through custom script injection.\n📌 Please consider this limitation when developing your MFE applications using this tool.\n",
-  appCreation: `Creating react app ${value}`,
-  installDependencies: "Installing dependencies...",
-  installDevDependencies: "Installing dependencies...",
-});
+  START_CONTAINER_CREATION:"Let's create ",
+  START_MFE_CREATION:"Let's start creating each MFE's",
+  APP_CREATION: "Creating react app ",
+  i_DEPENDENCIES: "Installing dependencies...",
+  i_DEV_DEPENDENCIES: "Installing dependencies...",
+};
+
+export const DEPENDENCIES_TO_INSTALL = [];

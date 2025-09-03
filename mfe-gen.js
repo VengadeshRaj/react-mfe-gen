@@ -1,9 +1,10 @@
 import inquirer from "inquirer";
-import { PROMPT, getInfoMessage } from "./constants.js";
+import { PROMPT, INFO_MESSAGE } from "./constants.js";
 import utils from "./utility.js";
+import { execa } from "execa";
 
 const mfeGen = async () => {
-  console.log(getInfoMessage().disclaimer);
+  console.log(INFO_MESSAGE.DISCLAIMER);
 
   const { typeOfAction, language } = await inquirer.prompt(PROMPT.USER_NEED);
   switch (typeOfAction) {
@@ -19,12 +20,29 @@ const mfeGen = async () => {
   }
 };
 
-const newProjectCreation = async(language) => {
-    const { projectName, projectDescription,numberOfMfes } = await inquirer.prompt(PROMPT.ENTIRE_PROJECT);
+const newProjectCreation = async (language) => {
+  let appCommand = ["create-react-app"];
+  const { projectName, projectDescription, numberOfMfes } =
+    await inquirer.prompt(PROMPT.ENTIRE_PROJECT);
 
-    const { styling, stateManagement,formManagement } = await inquirer.prompt(PROMPT.COMMON);
-    await utils.runTask(getInfoMessage());
+  appCommand = [...appCommand, projectName];
 
+  console.log(
+    `${INFO_MESSAGE.START_CONTAINER_CREATION}${projectName} as container`
+  );
+
+  const { containerPath, styling, stateManagement } = await inquirer.prompt([
+    PROMPT.CONDITIONAL.CONTAINER_PATH,
+    ...PROMPT.COMMON,
+  ]);
+
+  process.chdir(containerPath);
+
+  if (language === "TypeScript") appCommand = [...appCommand, "--template", "typescript"];
+  
+  utils.createReactApp(appCommand);
+
+  console.log("Done");
 };
 const conatinerCreation = (language) => {};
 const singleMfeCreation = (language) => {};
