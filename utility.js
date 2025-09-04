@@ -16,10 +16,10 @@ class utils {
       throw err;
     }
   }
-  static async createReactApp(command) {
+  static async createReactApp(appCommand) {
     try {
         await utils.runTask(INFO_MESSAGE.APP_CREATION, () =>
-          execa("npx", command)
+          execa("npx", ["create-react-app",...appCommand])
         );
     } catch (err) {
       throw err;

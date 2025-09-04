@@ -2,13 +2,11 @@ import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE } from "../constants.js";
 import utils from "../utility.js";
 
-const newProjectCreation = async (language) => {
-  let appCommand = ["create-react-app"];
-  
+const newProjectCreation = async (language) => {  
   const { projectName, projectDescription, numberOfMfes } =
     await inquirer.prompt(PROMPT.ENTIRE_PROJECT);
 
-  appCommand = [...appCommand, projectName];
+  let appCommand = [ projectName];
 
   console.log(
     `${INFO_MESSAGE.START_CONTAINER_CREATION}${projectName} as container`
