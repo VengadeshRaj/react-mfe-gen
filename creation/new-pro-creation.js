@@ -4,6 +4,7 @@ import utils from "../utility.js";
 
 const newProjectCreation = async (language) => {
   let appCommand = ["create-react-app"];
+  
   const { projectName, projectDescription, numberOfMfes } =
     await inquirer.prompt(PROMPT.ENTIRE_PROJECT);
 
@@ -23,9 +24,9 @@ const newProjectCreation = async (language) => {
   if (language === "TypeScript")
     appCommand = [...appCommand, "--template", "typescript"];
 
-  utils.createReactApp(appCommand);
+  await utils.createReactApp(appCommand);
 
-  console.log("Done");
+  console.log("appCommand",appCommand);
 };
 
 export default newProjectCreation;
