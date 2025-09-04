@@ -1,5 +1,6 @@
 import { Spinner } from "cli-spinner";
 import { execa } from "execa";
+import { INFO_MESSAGE } from "./constants.js";
 
 class utils {
   static async runTask(logMessage, task) {
@@ -18,7 +19,7 @@ class utils {
   static async createReactApp(command) {
     try {
         await utils.runTask(INFO_MESSAGE.APP_CREATION, () =>
-          execa("npx", ["create-react-app", ...command])
+          execa("npx", command)
         );
     } catch (err) {
       throw err;
