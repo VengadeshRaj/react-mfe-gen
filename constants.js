@@ -154,14 +154,13 @@ export const LIBRARY_PAIR = {
     ],
     Bootstrap: ["bootstrap"],
     "Styled Components": ["styled-components"],
-    None:[]
+    None: [],
   },
-  STATE_MANAGEMENT:{
-    None:[],
-    Redux:["@reduxjs/toolkit", "react-redux"],
-    Zustand:["zustand"]
+  STATE_MANAGEMENT: {
+    None: [],
+    Redux: ["@reduxjs/toolkit", "react-redux"],
+    Zustand: ["zustand"],
   },
-
 };
 
 export const DEFAULT_DEPENDENCIES = ["axios", "react-router-dom"];
