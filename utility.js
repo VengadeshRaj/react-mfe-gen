@@ -59,6 +59,7 @@ class utils {
       .join("");
   }
   static async configureContainer(info, mfeNames) {
+    // Destructure inputs
     const {
       projectName,
       projectDescription,
@@ -66,29 +67,39 @@ class utils {
       styling,
       stateManagement,
     } = info;
+
+    // Go inside src
     process.chdir(`${process.cwd()}\\${projectName}\\src`);
 
+    // Create heart of container
     await writeFile("MicroFrontend.js", getHeartContent(projectName));
 
+    // Convert project name into component name format
     const containerCompName = utils.toCompName(projectName);
 
+    // Create container component
     await writeFile(
       utils.withExt(containerCompName, isTypeScript),
       getContainerCompContent(containerCompName, mfeNames)
     );
 
+    // Modify App.jsx or .tsx file
     await writeFile(
       utils.withExt("App", isTypeScript),
       getAppContent(containerCompName)
     );
 
+    // Drop unnecessary files
     await unlink("App.css");
     await unlink("logo.svg");
 
+    // Create MFE folders
     await mkdir("microfrontends");
 
+    // Go inside MFE folder
     process.chdir(`${process.cwd()}\\microfrontends`);
 
+    // Run loop and create number of mfe components
     for (let i = 0; i < mfeNames.length; i++) {
       await writeFile(
         utils.withExt(mfeNames[i], isTypeScript),
@@ -96,15 +107,21 @@ class utils {
       );
     }
 
+    // Go to root
     process.chdir("../../");
+    // Create env file with specified MFE default ports
     await writeFile(".env", getEnvContent(mfeNames));
 
+    // Install common and user defined packages
     const packagesList = [
       ...DEFAULT_DEPENDENCIES,
       ...LIBRARY_PAIR.STYLING[styling],
       ...LIBRARY_PAIR.STATE_MANAGEMENT[stateManagement],
     ];
     await utils.installPackages(packagesList);
+
+    // Create readme
+    await writeFile("README.md", `# ${projectName}\n${projectDescription}`);
   }
 }
 
