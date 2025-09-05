@@ -18,13 +18,26 @@ class utils {
   }
   static async createReactApp(appCommand) {
     try {
-        await utils.runTask(INFO_MESSAGE.APP_CREATION, () =>
-          execa("npx", ["create-react-app",...appCommand])
-        );
+      await utils.runTask(INFO_MESSAGE.APP_CREATION, () =>
+        execa("npx", ["create-react-app", ...appCommand])
+      );
     } catch (err) {
       throw err;
     }
   }
+  static withExt(name,isTs) {
+    return isTs ? `${name}.tsx` : `${name}.jsx`;
+  }
+  static withScript(name,isTs) {
+    return isTs ? `${name}.ts` : `${name}.js`;
+  }
+  static toCompName(AppName) {
+  return AppName
+    .replace(/[-\s]+/g, " ")                
+    .split(" ")                             
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join("");
+}
 }
 
 export default utils;
