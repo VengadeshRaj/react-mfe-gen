@@ -5,10 +5,10 @@ export const QUESTION = {
   PROJECT_DESCRIPTION: "Enter your project description:",
   NUMBER_OF_MFES: "How many micro-frontends do you plan to include?",
   MFE_NAME:
-    "Enter your micro-frontend name:\n**Note:** This will be used as a prefix in window functions.",
+    "Enter your micro-frontend name:\n**Note:** This will be used as a prefix in window functions.\n:",
   MFE_DESCRIPTION: "Enter a description for your micro-frontend:",
   CONTAINER_NAME:
-    "Enter your container app name:\n**Note:** This will be used as a prefix in window functions.",
+    "Enter your container app name:\n**Note:** This should be prefix word in your microfrontends window functions.\n:",
   CONTAINER_DESCRIPTION: "Enter a description for your container app:",
   STYLING: "Select a styling solution:",
   STATE_MANAGEMENT: "Select a state management library:",
@@ -106,11 +106,27 @@ export const PROMPT = {
       message: QUESTION.CONTAINER_NAME,
       type: "input",
       name: "containerName",
+      validate(value) {
+        if (!/^[a-z-]+$/.test(value)) {
+          return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
+        }
+        return true;
+      },
     },
     {
       message: QUESTION.CONTAINER_DESCRIPTION,
       type: "input",
       name: "containerDescription",
+    },
+    {
+      type: "input",
+      name: "numberOfMfes",
+      message: QUESTION.NUMBER_OF_MFES,
+      validate(value) {
+        const isNumber = !Number.isNaN(Number.parseFloat(value));
+        return isNumber || "Please enter a valid number";
+      },
+      filter: Number,
     },
   ],
   COMMON: [
@@ -171,12 +187,13 @@ export const PROMPT = {
 export const INFO_MESSAGE = {
   DISCLAIMER:
     "Hello there! 👋\n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection ⚙️.\nPlease keep this limitation in mind when developing your MFE applications 📌.\n",
-  CREATE_APP: "Starting app creation... 🚀 ",
+  CREATE_APP: "Let's create ",
   CONFIGURE_CONTAINER: "Configuring the container... 🛠️",
   COMPLETE_CONTAINER: "Container has been created successfully! ✅",
   APP_CREATION: "Creating your React app... ⚛️  ",
   i_DEPENDENCIES: "Installing dependencies... 📦  ",
   i_DEV_DEPENDENCIES: "Installing dev dependencies... 🧩  ",
+  FINAL_MESSAGE: "New project created successfully!\nHappy coding!",
 };
 
 export const LIBRARY_PAIR = {

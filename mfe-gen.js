@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE } from "./constants.js";
-import {newProjectCreation} from "./creation/index.js";
+import {newProjectCreation,containerCreation,singleMfeCreation} from "./creation/index.js";
 
 const mfeGen = async () => {
   console.log(INFO_MESSAGE.DISCLAIMER);

@@ -93,7 +93,7 @@ const newProjectCreation = async (language) => {
     );
   }
 
-  console.log("New project created successfully!\nHappy coding!");
+  console.log(INFO_MESSAGE.FINAL_MESSAGE);
 };
 
 export default newProjectCreation;
