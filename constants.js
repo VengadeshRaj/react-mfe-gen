@@ -60,6 +60,12 @@ export const PROMPT = {
       message: QUESTION.PROJECT_NAME,
       type: "input",
       name: "projectName",
+      validate(value) {
+        if (!/^[a-z-]+$/.test(value)) {
+          return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
+        }
+        return true;
+      },
     },
     {
       message: QUESTION.PROJECT_DESCRIPTION,
@@ -82,6 +88,12 @@ export const PROMPT = {
       message: QUESTION.MFE_NAME,
       type: "input",
       name: "mfeName",
+      validate(value) {
+        if (!/^[a-z-]+$/.test(value)) {
+          return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
+        }
+        return true;
+      },
     },
     {
       message: QUESTION.MFE_DESCRIPTION,
@@ -120,6 +132,12 @@ export const PROMPT = {
       message: QUESTION.CONDITIONAL_MFE_NAME,
       type: "input",
       name: "mfeName",
+      validate(value) {
+        if (!/^[a-z-]+$/.test(value)) {
+          return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
+        }
+        return true;
+      },
     },
     CONTAINER_PATH: {
       message: QUESTION.CONTAINER_PATH,
@@ -152,13 +170,13 @@ export const PROMPT = {
 
 export const INFO_MESSAGE = {
   DISCLAIMER:
-    "👋 Hi there!\n\n⚙️ This tool currently supports micro-frontend creation with runtime integration through custom script injection.\n📌 Please consider this limitation when developing your MFE applications using this tool.\n",
-  CREATE_APP: "Let's create ",
-  CONFIGURE_CONTAINER:'Configuring container...',
-  COMPLETE_CONTAINER:'Container created successfully...',
-  APP_CREATION: "Creating react app ",
-  i_DEPENDENCIES: "Installing dependencies...",
-  i_DEV_DEPENDENCIES: "Installing dependencies...",
+    "Hello there! 👋\n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection ⚙️.\nPlease keep this limitation in mind when developing your MFE applications 📌.\n",
+  CREATE_APP: "Starting app creation... 🚀 ",
+  CONFIGURE_CONTAINER: "Configuring the container... 🛠️",
+  COMPLETE_CONTAINER: "Container has been created successfully! ✅",
+  APP_CREATION: "Creating your React app... ⚛️  ",
+  i_DEPENDENCIES: "Installing dependencies... 📦  ",
+  i_DEV_DEPENDENCIES: "Installing dev dependencies... 🧩  ",
 };
 
 export const LIBRARY_PAIR = {
@@ -188,3 +206,5 @@ export const LIBRARY_PAIR = {
 };
 
 export const DEFAULT_DEPENDENCIES = ["axios", "react-router-dom"];
+
+export const DEFAULT_DEV_DEPENDENCIES = ["cross-env", "react-app-rewired"];

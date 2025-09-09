@@ -2,15 +2,9 @@ import inquirer from "inquirer";
 import {
   PROMPT,
   INFO_MESSAGE,
-  DEFAULT_DEPENDENCIES,
-  LIBRARY_PAIR,
+  QUESTION,
 } from "../constants.js";
 import utils from "../utility.js";
-import {
-  getConfigOverridesContent,
-  getMfeAppContent,
-  getmfeIndexContent,
-} from "../templates/mfe/index.js";
 
 const newProjectCreation = async (language) => {
   // Get typescript flag
@@ -27,6 +21,12 @@ const newProjectCreation = async (language) => {
         message: `Enter your name of Microfront end ${i + 1}:`,
         type: "input",
         name: "mfeName",
+        validate(value) {
+          if (!/^[a-z-]+$/.test(value)) {
+            return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
+          }
+          return true;
+        },
       },
     ]);
     mfeNames.push(mfeName);
@@ -55,12 +55,11 @@ const newProjectCreation = async (language) => {
   await utils.createReactApp(appCommand);
 
   // Make normal react app into MFE container
-  await utils.runTask(INFO_MESSAGE.CONFIGURE_CONTAINER, () =>
-    utils.configureContainer(
-      { ...projectInfo, ...commonInfo, isTypeScript },
-      mfeNames
-    )
+  await utils.configureContainer(
+    { ...projectInfo, ...commonInfo, isTypeScript },
+    mfeNames
   );
+
   // Let user know container created status
   console.log(INFO_MESSAGE.COMPLETE_CONTAINER);
 
@@ -70,77 +69,31 @@ const newProjectCreation = async (language) => {
 
     console.log(`${INFO_MESSAGE.CREATE_APP}${mfeName}\n`);
 
-    const { path, formManagement, styling, stateManagement } =
-      await inquirer.prompt([
-        {
-          message: `${PROMPT.CONDITIONAL.PATH}${mfeName} as microfront end\ne.g: G:\\workspace\\sample-mfe\n:`,
-          type: "input",
-          name: "path",
-        },
-        PROMPT.CONDITIONAL.FORM_MANAGEMENT,
-        PROMPT.COMMON,
-      ]);
+    const mfeInfo = await inquirer.prompt([
+      {
+        message: `${QUESTION.PATH}${mfeName} as microfront end\ne.g: G:\\workspace\\sample-mfe\n:`,
+        type: "input",
+        name: "path",
+      },
+      PROMPT.CONDITIONAL.FORM_MANAGEMENT,
+      ...PROMPT.COMMON,
+    ]);
     // Go inside user specified mfe dir
-    process.chdir(path);
+    process.chdir(mfeInfo.path);
     const mfeAppCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
 
     // Create mfe react app
     await utils.createReactApp(mfeAppCommand);
 
-    // Go inside src
-    process.chdir(`${process.cwd()}\\${mfeName}\\src`);
-
-    // Modify App.jsx or .tsx file
-    await writeFile(
-      utils.withExt("App", isTypeScript),
-      getMfeAppContent(mfeName, isTypeScript)
+    // Make normal react app into MFE container
+    await utils.configureMfe(
+      {...mfeInfo,projectName,isTypeScript},
+      mfeName,
+      i
     );
-
-    // Modify index.jsx or .tsx file
-    await writeFile(
-      utils.withExt("index", isTypeScript),
-      getmfeIndexContent(mfeName, isTypeScript)
-    );
-
-    // Drop unnecessary files
-    await unlink("App.css");
-    await unlink("logo.svg");
-    await unlink("index.css");
-
-    // Go to root
-    process.chdir("../");
-
-    // add config override file
-    await writeFile(
-      utils.withExt("config-overrides.js"),
-      getConfigOverridesContent()
-    );
-
-    const updatedScript = {
-      start: `cross-env PORT=900${i} react-app-rewired start`,
-      build: "react-app-rewired build",
-      test: "react-app-rewired test",
-      eject: "react-app-rewired eject",
-    };
-
-    // modify package.json scripts
-    utils.updateScripts(`${process.cwd()}\\package.json`, updatedScript);
-
-    // Install common and user defined packages
-    const packagesList = [
-      ...DEFAULT_DEPENDENCIES,
-      ...LIBRARY_PAIR.STYLING[styling],
-      ...LIBRARY_PAIR.STATE_MANAGEMENT[stateManagement],
-      ...LIBRARY_PAIR.FORM_MANAGEMENT[formManagement],
-    ];
-
-    await utils.installPackages(packagesList);
-
-    // Create readme
-    await writeFile("README.md", `# ${mfeName}`);
-
-    console.log("done!");
   }
+
+  console.log("New project created successfully!\nHappy coding!");
 };
 
 export default newProjectCreation;

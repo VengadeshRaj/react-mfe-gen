@@ -4,6 +4,7 @@ import {
   INFO_MESSAGE,
   LIBRARY_PAIR,
   DEFAULT_DEPENDENCIES,
+  DEFAULT_DEV_DEPENDENCIES,
 } from "./constants.js";
 import {
   getHeartContent,
@@ -13,7 +14,11 @@ import {
   getEnvContent,
 } from "./templates/container/index.js";
 import { writeFile, unlink, mkdir, readFile } from "fs/promises";
-
+import {
+  getConfigOverridesContent,
+  getMfeAppContent,
+  getmfeIndexContent,
+} from "./templates/mfe/index.js";
 class utils {
   static async runTask(logMessage, task) {
     const spinner = new Spinner(logMessage + "%s");
@@ -37,9 +42,14 @@ class utils {
       throw err;
     }
   }
-  static async installPackages(packages) {
+  static async installPackages(packages, isDev = false) {
     try {
-      await utils.runTask(INFO_MESSAGE.i_DEPENDENCIES, () =>
+      let message = INFO_MESSAGE.i_DEPENDENCIES;
+      if (isDev) {
+        message = INFO_MESSAGE.i_DEV_DEPENDENCIES;
+        packages = [...packages, "--save-dev"];
+      }
+      await utils.runTask(message, () =>
         execa("npm", ["install", ...packages])
       );
     } catch (err) {
@@ -63,7 +73,7 @@ class utils {
       .join("");
   }
   static async updateScripts(dir, newScripts) {
-    const rawPackageJson = await readFile(proDir);
+    const rawPackageJson = await readFile(dir);
     const packageJSON = JSON.parse(rawPackageJson, "utf8");
 
     packageJSON.scripts = newScripts;
@@ -84,21 +94,27 @@ class utils {
     process.chdir(`${process.cwd()}\\${projectName}\\src`);
 
     // Create heart of container
-    await writeFile("MicroFrontend.js", getHeartContent(projectName));
+    await utils.runTask(INFO_MESSAGE.CONFIGURE_CONTAINER, () =>
+      writeFile("MicroFrontend.js", getHeartContent(projectName))
+    );
 
     // Convert project name into component name format
     const containerCompName = utils.toCompName(projectName);
 
     // Create container component
-    await writeFile(
-      utils.withExt(containerCompName, isTypeScript),
-      getContainerCompContent(containerCompName, mfeNames)
+    await utils.runTask(INFO_MESSAGE.CONFIGURE_CONTAINER, () =>
+      writeFile(
+        utils.withExt(containerCompName, isTypeScript),
+        getContainerCompContent(containerCompName, mfeNames)
+      )
     );
 
     // Modify App.jsx or .tsx file
-    await writeFile(
-      utils.withExt("App", isTypeScript),
-      getAppContent(containerCompName)
+    await utils.runTask(INFO_MESSAGE.CONFIGURE_CONTAINER, () =>
+      writeFile(
+        utils.withExt("App", isTypeScript),
+        getAppContent(containerCompName)
+      )
     );
 
     // Drop unnecessary files
@@ -113,9 +129,10 @@ class utils {
 
     // Run loop and create number of mfe components
     for (let i = 0; i < mfeNames.length; i++) {
+      const mfeCompName = utils.toCompName(mfeNames[i]);
       await writeFile(
-        utils.withExt(mfeNames[i], isTypeScript),
-        getMfeCompContent(mfeNames[i], isTypeScript)
+        utils.withExt(mfeCompName, isTypeScript),
+        getMfeCompContent(mfeCompName, isTypeScript)
       );
     }
 
@@ -135,70 +152,64 @@ class utils {
     // Create readme
     await writeFile("README.md", `# ${projectName}\n${projectDescription}`);
   }
-  static async configureMfe(info, mfeNames) {
+  static async configureMfe(info, mfeName, index) {
     // Destructure inputs
-    const {
-      projectName,
-      projectDescription,
-      isTypeScript,
-      styling,
-      stateManagement,
-    } = info;
-
+    const { projectName, formManagement, styling, stateManagement, isTypeScript } = info;
     // Go inside src
-    process.chdir(`${process.cwd()}\\${projectName}\\src`);
-
-    // Create heart of container
-    await writeFile("MicroFrontend.js", getHeartContent(projectName));
-
-    // Convert project name into component name format
-    const containerCompName = utils.toCompName(projectName);
-
-    // Create container component
-    await writeFile(
-      utils.withExt(containerCompName, isTypeScript),
-      getContainerCompContent(containerCompName, mfeNames)
-    );
+    process.chdir(`${process.cwd()}\\${mfeName}\\src`);
 
     // Modify App.jsx or .tsx file
     await writeFile(
       utils.withExt("App", isTypeScript),
-      getAppContent(containerCompName)
+      getMfeAppContent(utils.toCompName(mfeName), isTypeScript)
+    );
+
+    // Modify index.jsx or .tsx file
+    await writeFile(
+      utils.withExt("index", isTypeScript),
+      getmfeIndexContent(utils.toCompName(mfeName),projectName, isTypeScript)
     );
 
     // Drop unnecessary files
     await unlink("App.css");
     await unlink("logo.svg");
-
-    // Create MFE folders
-    await mkdir("microfrontends");
-
-    // Go inside MFE folder
-    process.chdir(`${process.cwd()}\\microfrontends`);
-
-    // Run loop and create number of mfe components
-    for (let i = 0; i < mfeNames.length; i++) {
-      await writeFile(
-        utils.withExt(mfeNames[i], isTypeScript),
-        getMfeCompContent(mfeNames[i], isTypeScript)
-      );
-    }
+    await unlink("index.css");
 
     // Go to root
-    process.chdir("../../");
-    // Create env file with specified MFE default ports
-    await writeFile(".env", getEnvContent(mfeNames));
+    process.chdir("../");
+
+    // add config override file
+    await writeFile(
+      "config-overrides.js",
+      getConfigOverridesContent()
+    );
+
+    const updatedScript = {
+      start: `cross-env PORT=900${index} react-app-rewired start`,
+      build: "react-app-rewired build",
+      test: "react-app-rewired test",
+      eject: "react-app-rewired eject",
+    };
+
+    // modify package.json scripts
+    utils.updateScripts(`${process.cwd()}\\package.json`, updatedScript);
 
     // Install common and user defined packages
     const packagesList = [
       ...DEFAULT_DEPENDENCIES,
       ...LIBRARY_PAIR.STYLING[styling],
       ...LIBRARY_PAIR.STATE_MANAGEMENT[stateManagement],
+      ...LIBRARY_PAIR.FORM_MANAGEMENT[formManagement],
     ];
+
     await utils.installPackages(packagesList);
 
+    await utils.installPackages(DEFAULT_DEV_DEPENDENCIES, true);
+
     // Create readme
-    await writeFile("README.md", `# ${projectName}\n${projectDescription}`);
+    await writeFile("README.md", `# ${mfeName}`);
+
+    console.log(`${mfeName} created ✅`);
   }
 }
 

@@ -1,4 +1,4 @@
-export const getmfeIndexContent=(mfeName='mfe',isTs)=>{
+export const getmfeIndexContent=(mfeName='mfe',container='',isTs)=>{
     return`import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
@@ -11,7 +11,7 @@ declare global {
 }
 
 window.render${mfeName} = (containerId${isTs?": string":""}, history${isTs?"?: any":""}) => {
-  const container${isTs?"?: any":""} = document.getElementById(containerId);
+  const container${isTs?": any":""} = document.getElementById(containerId);
   if (container) {
     const root = createRoot(container);
     root.render(<App history={history} />);
@@ -27,7 +27,7 @@ window.unmount${mfeName} = (containerId${isTs?": string":""}) => {
 };
 
 const rootContainer = document.getElementById("root");
-if (rootContainer && !document.getElementById("${mfeName}-container")) {
+if (rootContainer && !document.getElementById("${mfeName}-${container}")) {
   createRoot(rootContainer).render(<App />);
 }
 
