@@ -1,6 +1,6 @@
 {
   "name": "react-mfe-gen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI tool for react Microfront end initial setup",
   "main": "index.js",
   "scripts": {
