@@ -1,2 +1,2 @@
 # react-mfe-gen
-CLI tool for react Microfront end initial setup
+CLI tool to automate react Microfront end initial setup
