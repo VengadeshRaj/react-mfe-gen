@@ -13,7 +13,7 @@ import {
   getContainerCompContent,
   getEnvContent,
 } from "./templates/container/index.js";
-import { writeFile, unlink, mkdir, readFile } from "fs/promises";
+import { writeFile, unlink, mkdir, readFile, rm } from "fs/promises";
 import {
   getConfigOverridesContent,
   getMfeAppContent,
@@ -31,6 +31,16 @@ class utils {
     } catch (err) {
       spinner.stop(true);
       throw err;
+    }
+  }
+  static async cleanupProject(dirs) {
+    console.log(`Cleaning up the project directory: ${dirs}`);
+    try {
+      for (let i = 0; i < dirs.length; i++) {
+        await rm(dirs[i], { recursive: true });
+      }
+    } catch (err) {
+      console.log(`Failed to clean project directory\n Error:${err}`);
     }
   }
   static async createReactApp(appCommand) {
@@ -156,7 +166,13 @@ class utils {
   }
   static async configureMfe(info, mfeName, index) {
     // Destructure inputs
-    const { projectName, formManagement, styling, stateManagement, isTypeScript } = info;
+    const {
+      projectName,
+      formManagement,
+      styling,
+      stateManagement,
+      isTypeScript,
+    } = info;
     // Go inside src
     process.chdir(`${process.cwd()}\\${mfeName}\\src`);
 
@@ -169,7 +185,7 @@ class utils {
     // Modify index.jsx or .tsx file
     await writeFile(
       utils.withExt("index", isTypeScript),
-      getmfeIndexContent(utils.toCompName(mfeName),projectName, isTypeScript)
+      getmfeIndexContent(utils.toCompName(mfeName), projectName, isTypeScript)
     );
 
     // Drop unnecessary files
@@ -181,10 +197,7 @@ class utils {
     process.chdir("../");
 
     // add config override file
-    await writeFile(
-      "config-overrides.js",
-      getConfigOverridesContent()
-    );
+    await writeFile("config-overrides.js", getConfigOverridesContent());
 
     const updatedScript = {
       start: `cross-env PORT=900${index} react-app-rewired start`,

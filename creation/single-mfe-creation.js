@@ -3,36 +3,47 @@ import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants.js";
 import utils from "../utility.js";
 
 const singleMfeCreation = async (language) => {
-  // Get typescript flag
-  const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
+  // To store different working dir
+  const wrokingDirectories = [];
+  try {
+    // Get typescript flag
+    const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
 
-  const { mfeName, mfeDescription } = await inquirer.prompt(PROMPT.ONE_MFE);
+    const { mfeName, mfeDescription } = await inquirer.prompt(PROMPT.ONE_MFE);
 
-  console.log(`${INFO_MESSAGE.CREATE_APP}${mfeName} as microfront end`);
+    console.log(`${INFO_MESSAGE.CREATE_APP}${mfeName} as microfront end`);
 
-  const mfeInfo = await inquirer.prompt([
-    PROMPT.CONDITIONAL.MFE_PATH,
-    ...PROMPT.COMMON,
-    PROMPT.CONDITIONAL.FORM_MANAGEMENT,
-  ]);
+    const mfeInfo = await inquirer.prompt([
+      PROMPT.CONDITIONAL.MFE_PATH,
+      ...PROMPT.COMMON,
+      PROMPT.CONDITIONAL.FORM_MANAGEMENT,
+    ]);
 
-  // Go inside user specified dir
-  process.chdir(mfeInfo.mfePath);
+    // store working dir
+    wrokingDirectories.push(mfeInfo.mfePath);
 
-  // Array to store CRA command
-  const appCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
+    // Go inside user specified dir
+    process.chdir(mfeInfo.mfePath);
 
-  // Create container react app
-  await utils.createReactApp(appCommand);
+    // Array to store CRA command
+    const appCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
 
-  // Make normal react app into MFE container
-  await utils.configureMfe(
-    { ...mfeInfo, projectName: mfeName, isTypeScript },
-    mfeName,
-    0
-  );
+    // Create container react app
+    await utils.createReactApp(appCommand);
 
-  console.log(`${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`);
+    // Make normal react app into MFE container
+    await utils.configureMfe(
+      { ...mfeInfo, projectName: mfeName, isTypeScript },
+      mfeName,
+      0
+    );
+
+    console.log(
+      `${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`
+    );
+  } catch {
+    utils.cleanupProject(wrokingDirectories)
+  }
 };
 
 export default singleMfeCreation;
