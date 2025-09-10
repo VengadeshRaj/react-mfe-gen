@@ -3,12 +3,13 @@ import {
   PROMPT,
   INFO_MESSAGE,
   QUESTION,
+  CHOICE_CONSTANTS,
 } from "../constants.js";
 import utils from "../utility.js";
 
 const newProjectCreation = async (language) => {
   // Get typescript flag
-  const isTypeScript = language === "TypeScript";
+  const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
   // Declare array to store list of mfe names
   const mfeNames = [];
   // Get basic project info
@@ -60,9 +61,6 @@ const newProjectCreation = async (language) => {
     mfeNames
   );
 
-  // Let user know container created status
-  console.log(INFO_MESSAGE.COMPLETE_CONTAINER);
-
   // Get mfe requirements for each mfe
   for (let i = 0; i < mfeNames.length; i++) {
     const mfeName = mfeNames[i];
@@ -87,13 +85,13 @@ const newProjectCreation = async (language) => {
 
     // Make normal react app into MFE container
     await utils.configureMfe(
-      {...mfeInfo,projectName,isTypeScript},
+      {...mfeInfo,projectName:projectInfo.projectName,isTypeScript},
       mfeName,
       i
     );
   }
 
-  console.log(INFO_MESSAGE.FINAL_MESSAGE);
+  console.log(`${INFO_MESSAGE.SUCCESS.NEW_PRO}\n${INFO_MESSAGE.HAPPY_CODING}`);
 };
 
 export default newProjectCreation;

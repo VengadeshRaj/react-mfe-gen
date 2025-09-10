@@ -20,24 +20,62 @@ export const QUESTION = {
     "Please enter a path to create microfront end:\ne.g: G:\\workspace\\sample-mfe\n:",
   PATH: "Please enter a path to create ",
 };
+export const CHOICE_CONSTANTS = {
+  ACTION: {
+    NEW_PROJECT: "Create a new project 🚀",
+    CONTAINER: "Create only a container 📦",
+    SINGLE_MFE: "Create a single micro-frontend 🌐",
+  },
+  STYLING: {
+    SASS: "Sass 🎨",
+    TAILWIND: "Tailwind 🌊",
+    MATERIAL_UI: "Material UI 🧩",
+    BOOTSTRAP: "Bootstrap 🥾",
+    STYLED_COMPONENTS: "Styled Components ✍️",
+  },
+  LANGUAGE: {
+    JAVA_SCRIPT: "JavaScript 🟨",
+    TYPE_SCRIPT: "TypeScript 🔷",
+  },
+  STATE_MANAGEMENT: {
+    REDUX: "Redux 🔄",
+    ZUSTAND: "Zustand 🐻",
+  },
+  FORM_MANAGEMENT: {
+    REACT_HOOK_FORM: "React-hook-form 🪝",
+    FORMIK: "Formik 📝",
+  },
+  NONE: "None ❌",
+};
 
 export const CHOICES = {
   ACTION: [
-    "Create a new project",
-    "Create only a container",
-    "Create a single micro-frontend",
+    CHOICE_CONSTANTS.ACTION.NEW_PROJECT,
+    CHOICE_CONSTANTS.ACTION.CONTAINER,
+    CHOICE_CONSTANTS.ACTION.SINGLE_MFE,
   ],
   STYLING: [
-    "None",
-    "Sass",
-    "Tailwind",
-    "Material UI",
-    "Bootstrap",
-    "Styled Components",
+    CHOICE_CONSTANTS.NONE,
+    CHOICE_CONSTANTS.STYLING.SASS,
+    CHOICE_CONSTANTS.STYLING.BOOTSTRAP,
+    CHOICE_CONSTANTS.STYLING.MATERIAL_UI,
+    CHOICE_CONSTANTS.STYLING.TAILWIND,
+    CHOICE_CONSTANTS.STYLING.STYLED_COMPONENTS,
   ],
-  LANGUAGE: ["JavaScript", "TypeScript"],
-  STATE_MANAGEMENT: ["None", "Redux", "Zustand"],
-  FORM_MANAGEMENT: ["None", "React-hook-form", "Formik"],
+  LANGUAGE: [
+    CHOICE_CONSTANTS.LANGUAGE.JAVA_SCRIPT,
+    CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT,
+  ],
+  STATE_MANAGEMENT: [
+    CHOICE_CONSTANTS.NONE,
+    CHOICE_CONSTANTS.STATE_MANAGEMENT.REDUX,
+    CHOICE_CONSTANTS.STATE_MANAGEMENT.ZUSTAND,
+  ],
+  FORM_MANAGEMENT: [
+    CHOICE_CONSTANTS.NONE,
+    CHOICE_CONSTANTS.FORM_MANAGEMENT.REACT_HOOK_FORM,
+    CHOICE_CONSTANTS.FORM_MANAGEMENT.FORMIK,
+  ],
 };
 
 export const PROMPT = {
@@ -189,36 +227,51 @@ export const INFO_MESSAGE = {
     "Hello there! 👋\n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection ⚙️.\nPlease keep this limitation in mind when developing your MFE applications 📌.\n",
   CREATE_APP: "Let's create ",
   CONFIGURE_CONTAINER: "Configuring the container... 🛠️",
-  COMPLETE_CONTAINER: "Container has been created successfully! ✅",
   APP_CREATION: "Creating your React app... ⚛️  ",
   i_DEPENDENCIES: "Installing dependencies... 📦  ",
   i_DEV_DEPENDENCIES: "Installing dev dependencies... 🧩  ",
-  FINAL_MESSAGE: "New project created successfully!\nHappy coding!",
+  SUCCESS: {
+    NEW_PRO: "New project created successfully! 🎉",
+    CONTAINER: "Container created successfully! 📦",
+    ONE_MFE: "Microfront end created successfully! 🌐",
+  },
+  HAPPY_CODING: "Happy coding! 💻✨",
 };
 
 export const LIBRARY_PAIR = {
   STYLING: {
-    Tailwind: ["tailwindcss", "postcss", "autoprefixer"],
-    Sass: ["sass"],
-    "Material UI": [
+    [CHOICE_CONSTANTS.STYLING.TAILWIND]: [
+      "tailwindcss",
+      "postcss",
+      "autoprefixer",
+    ],
+    [CHOICE_CONSTANTS.STYLING.SASS]: ["sass"],
+    [CHOICE_CONSTANTS.STYLING.MATERIAL_UI]: [
       "@mui/material",
       "@emotion/react",
       "@emotion/styled",
       "@mui/icons-material",
     ],
-    Bootstrap: ["bootstrap"],
-    "Styled Components": ["styled-components"],
-    None: [],
+    [CHOICE_CONSTANTS.STYLING.BOOTSTRAP]: ["bootstrap"],
+    [CHOICE_CONSTANTS.STYLING.STYLED_COMPONENTS]: ["styled-components"],
+    [CHOICE_CONSTANTS.NONE]: [],
   },
   STATE_MANAGEMENT: {
-    None: [],
-    Redux: ["@reduxjs/toolkit", "react-redux"],
-    Zustand: ["zustand"],
+    [CHOICE_CONSTANTS.NONE]: [],
+    [CHOICE_CONSTANTS.STATE_MANAGEMENT.REDUX]: [
+      "@reduxjs/toolkit",
+      "react-redux",
+    ],
+    [CHOICE_CONSTANTS.STATE_MANAGEMENT.ZUSTAND]: ["zustand"],
   },
   FORM_MANAGEMENT: {
-    None: [],
-    "React-hook-form": ["react-hook-form", "@hookform/resolvers", "yup"],
-    Formik: ["formik", "yup"],
+    [CHOICE_CONSTANTS.NONE]: [],
+    [CHOICE_CONSTANTS.FORM_MANAGEMENT.REACT_HOOK_FORM]: [
+      "react-hook-form",
+      "@hookform/resolvers",
+      "yup",
+    ],
+    [CHOICE_CONSTANTS.FORM_MANAGEMENT.FORMIK]: ["formik", "yup"],
   },
 };
 

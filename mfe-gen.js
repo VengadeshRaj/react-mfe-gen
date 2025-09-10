@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { PROMPT, INFO_MESSAGE } from "./constants.js";
+import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "./constants.js";
 import {newProjectCreation,containerCreation,singleMfeCreation} from "./creation/index.js";
 
 const mfeGen = async () => {
@@ -7,13 +7,13 @@ const mfeGen = async () => {
 
   const { typeOfAction, language } = await inquirer.prompt(PROMPT.USER_NEED);
   switch (typeOfAction) {
-    case "Create a new project":
+    case CHOICE_CONSTANTS.ACTION.NEW_PROJECT:
       newProjectCreation(language);
       break;
-    case "Create only a container":
+    case CHOICE_CONSTANTS.ACTION.CONTAINER:
       containerCreation(language);
       break;
-    case "Create a single micro-frontend":
+    case CHOICE_CONSTANTS.ACTION.SINGLE_MFE:
       singleMfeCreation(language);
       break;
   }

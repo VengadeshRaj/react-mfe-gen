@@ -1,10 +1,10 @@
 import inquirer from "inquirer";
-import { PROMPT, INFO_MESSAGE } from "../constants.js";
+import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants.js";
 import utils from "../utility.js";
 
 const containerCreation = async (language) => {
   // Get typescript flag
-  const isTypeScript = language === "TypeScript";
+  const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
   // Declare array to store list of mfe names
   const mfeNames = [];
 
@@ -59,7 +59,7 @@ const containerCreation = async (language) => {
   );
 
   // Let user know container created status
-  console.log(INFO_MESSAGE.COMPLETE_CONTAINER);
+  console.log(`${INFO_MESSAGE.SUCCESS.CONTAINER}\n${INFO_MESSAGE.HAPPY_CODING}`);
 };
 
 export default containerCreation;
