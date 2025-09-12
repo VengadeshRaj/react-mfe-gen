@@ -6,10 +6,11 @@ This tool uses the Runtime Integration approach — meaning each MFE is built as
 
 ## 🚀 Features:
 
-- Quickly set up a React MFE base project.
+- Quickly set up a React microfront end base project.
 - Follows Runtime Integration best practices.
-- Generates Web Components for seamless runtime integration.
-- Easy to use and beginner-friendly.
+- Outputs ready-to-execute code with fully dynamic, seamlessly integrated components..
+- Dynamically installs additional libraries based on user choices, such as state management, styling, and form handling.
+- Automatically cleans up any incomplete code if an unexpected issue occurs during the process.
 
 ## 📦 Prerequisites:
 
@@ -21,6 +22,6 @@ Node.js installed (latest LTS recommended).
     `npm install -g react-mfe-gen`
 
 - Run the CLI
-    `react-mfe-gen`
+    `create-react-mfe`
 
-- Follow the prompts to generate your project or container.
+- Answer the prompts to generate your project, container, or micro-frontend.

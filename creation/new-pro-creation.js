@@ -47,7 +47,9 @@ const newProjectCreation = async (language) => {
     ]);
 
     // store working dir
-    wrokingDirectories.push(commonInfo.containerPath);
+    wrokingDirectories.push(
+      `${commonInfo.containerPath}\\${projectInfo.projectName}`
+    );
     // Go inside user specified dir
     process.chdir(commonInfo.containerPath);
 
@@ -82,7 +84,9 @@ const newProjectCreation = async (language) => {
         ...PROMPT.COMMON,
       ]);
       // store working dir
-      wrokingDirectories.push(mfeInfo.path);
+      wrokingDirectories.push(
+        `${mfeInfo.path}\\${mfeName}`
+      );
       // Go inside user specified mfe dir
       process.chdir(mfeInfo.path);
       const mfeAppCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
