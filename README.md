@@ -1,4 +1,4 @@
-# react-mfe-gen
+# 🏗️ React Microfront end generator (react-mfe-gen)
 
 react-mfe-gen is a CLI tool that helps you quickly scaffold a base setup for React Micro-Frontend (MFE) architecture.
 
