@@ -4,7 +4,7 @@ import utils from "../utility.js";
 
 const singleMfeCreation = async (language) => {
   // To store different working dir
-  const wrokingDirectories = [];
+  const workingDirectories = [];
   try {
     // Get typescript flag
     const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
@@ -20,7 +20,7 @@ const singleMfeCreation = async (language) => {
     ]);
 
         // store working dir
-    wrokingDirectories.push(
+    workingDirectories.push(
       `${mfeInfo.mfePath}\\${mfeName}`
     );
 
@@ -44,7 +44,7 @@ const singleMfeCreation = async (language) => {
       `${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch {
-    utils.cleanupProject(wrokingDirectories)
+    utils.cleanupProject(workingDirectories)
   }
 };
 

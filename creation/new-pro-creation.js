@@ -9,7 +9,7 @@ import utils from "../utility.js";
 
 const newProjectCreation = async (language) => {
   // To store different working dir
-  const wrokingDirectories = [];
+  const workingDirectories = [];
   try {
     // Get typescript flag
     const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
@@ -47,7 +47,7 @@ const newProjectCreation = async (language) => {
     ]);
 
     // store working dir
-    wrokingDirectories.push(
+    workingDirectories.push(
       `${commonInfo.containerPath}\\${projectInfo.projectName}`
     );
     // Go inside user specified dir
@@ -84,7 +84,7 @@ const newProjectCreation = async (language) => {
         ...PROMPT.COMMON,
       ]);
       // store working dir
-      wrokingDirectories.push(
+      workingDirectories.push(
         `${mfeInfo.path}\\${mfeName}`
       );
       // Go inside user specified mfe dir
@@ -106,7 +106,7 @@ const newProjectCreation = async (language) => {
       `${INFO_MESSAGE.SUCCESS.NEW_PRO}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch {
-    utils.cleanupProject(wrokingDirectories);
+    utils.cleanupProject(workingDirectories);
   }
 };
 
