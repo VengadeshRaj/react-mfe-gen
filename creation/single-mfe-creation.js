@@ -19,8 +19,10 @@ const singleMfeCreation = async (language) => {
       PROMPT.CONDITIONAL.FORM_MANAGEMENT,
     ]);
 
-    // store working dir
-    wrokingDirectories.push(mfeInfo.mfePath);
+        // store working dir
+    wrokingDirectories.push(
+      `${mfeInfo.mfePath}\\${mfeName}`
+    );
 
     // Go inside user specified dir
     process.chdir(mfeInfo.mfePath);

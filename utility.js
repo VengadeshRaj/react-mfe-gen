@@ -162,7 +162,7 @@ class utils {
     // Create readme
     await writeFile("README.md", `# ${projectName}\n${projectDescription}`);
 
-    console.log(`${projectName} created ✅`);
+    console.log(`${projectName} created ✅\n`);
   }
   static async configureMfe(info, mfeName, index) {
     // Destructure inputs
