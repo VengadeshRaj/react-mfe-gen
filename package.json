@@ -1,7 +1,7 @@
 {
   "name": "react-mfe-gen",
   "version": "1.0.7",
-  "description": "CLI tool for react Microfront end initial setup",
+  "description": "Generate React micro-frontends, containers, and projects using a simple CLI with runtime integration support.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -31,8 +31,16 @@
   "keywords": [
     "react",
     "microfrontend",
+    "micro-frontend",
     "mfe",
     "cli",
-    "generator"
+    "generator",
+    "react-cli",
+    "project-generator",
+    "react-microfrontend",
+    "microfrontend-generator",
+    "react-setup",
+    "react-boilerplate",
+    "runtime-integration"
   ]
 }
