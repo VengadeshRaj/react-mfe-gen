@@ -34,9 +34,9 @@ class utils {
     }
   }
   static async cleanupProject(dirs) {
-    console.log(`Cleaning up the project directory: ${dirs}`);
     try {
       for (let i = 0; i < dirs.length; i++) {
+        console.log(`Cleaning up the project directory: ${dirs[i]}`);
         await rm(dirs[i], { recursive: true });
       }
     } catch (err) {
