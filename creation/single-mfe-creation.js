@@ -34,7 +34,7 @@ const singleMfeCreation = async (language) => {
 
     // Make normal react app into MFE container
     await utils.configureMfe(
-      { ...mfeInfo, projectName: mfeName,mfeDescription, isTypeScript },
+      { ...mfeInfo, projectName: mfeName, mfeDescription, isTypeScript },
       mfeName,
       0
     );
@@ -42,7 +42,8 @@ const singleMfeCreation = async (language) => {
     console.log(
       `${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
-  } catch {
+  } catch (e) {
+    console.log("Error:", e);
     utils.cleanupProject(workingDirectories);
   }
 };

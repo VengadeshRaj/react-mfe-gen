@@ -89,7 +89,7 @@ const newProjectCreation = async (language) => {
       // store working dir
       const mfeFullPath = path.join(mfeInfo.path, mfeName);
       workingDirectories.push(mfeFullPath);
-       // Go inside user specified mfe dir
+      // Go inside user specified mfe dir
       process.chdir(mfeInfo.path);
       const mfeAppCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
 
@@ -107,7 +107,8 @@ const newProjectCreation = async (language) => {
     console.log(
       `${INFO_MESSAGE.SUCCESS.NEW_PRO}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
-  } catch {
+  } catch (e) {
+    console.log("Error:", e);
     utils.cleanupProject(workingDirectories);
   }
 };
