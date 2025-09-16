@@ -1,3 +1,4 @@
+import path from "path";
 import inquirer from "inquirer";
 import {
   PROMPT,
@@ -47,9 +48,11 @@ const newProjectCreation = async (language) => {
     ]);
 
     // store working dir
-    workingDirectories.push(
-      `${commonInfo.containerPath}\\${projectInfo.projectName}`
+    const containerFullPath = path.join(
+      commonInfo.containerPath,
+      projectInfo.projectName
     );
+    workingDirectories.push(containerFullPath);
     // Go inside user specified dir
     process.chdir(commonInfo.containerPath);
 
@@ -76,7 +79,7 @@ const newProjectCreation = async (language) => {
 
       const mfeInfo = await inquirer.prompt([
         {
-          message: `${QUESTION.PATH}${mfeName} as microfront end\ne.g: G:\\workspace\\sample-mfe\n:`,
+          message: `${QUESTION.PATH}${mfeName} as microfront end\ne.g:\n for windows os: G:/workspace/sample-mfe ,\n for macOS/Linux: /Users/Me/workspace/sample-mfe\n:`,
           type: "input",
           name: "path",
         },
@@ -84,10 +87,9 @@ const newProjectCreation = async (language) => {
         ...PROMPT.COMMON,
       ]);
       // store working dir
-      workingDirectories.push(
-        `${mfeInfo.path}\\${mfeName}`
-      );
-      // Go inside user specified mfe dir
+      const mfeFullPath = path.join(mfeInfo.path, mfeName);
+      workingDirectories.push(mfeFullPath);
+       // Go inside user specified mfe dir
       process.chdir(mfeInfo.path);
       const mfeAppCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
 

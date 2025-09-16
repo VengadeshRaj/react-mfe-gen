@@ -41,9 +41,12 @@ const containerCreation = async (language) => {
     ]);
 
     // store working dir
-    workingDirectories.push(
-      `${commonInfo.containerPath}\\${containerName}`
+    // store working dir
+    const containerFullPath = path.join(
+      commonInfo.containerPath,
+      containerName
     );
+    workingDirectories.push(containerFullPath);
 
     // Go inside user specified dir
     process.chdir(commonInfo.containerPath);

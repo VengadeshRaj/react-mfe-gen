@@ -19,10 +19,9 @@ const singleMfeCreation = async (language) => {
       PROMPT.CONDITIONAL.FORM_MANAGEMENT,
     ]);
 
-        // store working dir
-    workingDirectories.push(
-      `${mfeInfo.mfePath}\\${mfeName}`
-    );
+    // store working dir
+    const mfepPath = path.join(mfeInfo.mfePath, mfeName);
+    workingDirectories.push(mfepPath);
 
     // Go inside user specified dir
     process.chdir(mfeInfo.mfePath);
@@ -35,7 +34,7 @@ const singleMfeCreation = async (language) => {
 
     // Make normal react app into MFE container
     await utils.configureMfe(
-      { ...mfeInfo, projectName: mfeName, isTypeScript },
+      { ...mfeInfo, projectName: mfeName,mfeDescription, isTypeScript },
       mfeName,
       0
     );
@@ -44,7 +43,7 @@ const singleMfeCreation = async (language) => {
       `${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch {
-    utils.cleanupProject(workingDirectories)
+    utils.cleanupProject(workingDirectories);
   }
 };
 
