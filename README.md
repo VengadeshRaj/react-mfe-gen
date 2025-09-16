@@ -11,6 +11,7 @@ This tool uses the Runtime Integration approach — meaning each MFE is built as
 - Outputs ready-to-execute code with fully dynamic, seamlessly integrated components..
 - Dynamically installs additional libraries based on user choices, such as state management, styling, and form handling.
 - Automatically cleans up any incomplete code if an unexpected issue occurs during the process.
+- Cross platform support(works on Windows, macOs and Linux)
 
 ## 📦 Prerequisites:
 
