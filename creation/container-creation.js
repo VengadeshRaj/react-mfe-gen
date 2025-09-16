@@ -4,7 +4,7 @@ import utils from "../utility.js";
 
 const containerCreation = async (language) => {
   // To store different working dir
-  const wrokingDirectories = [];
+  const workingDirectories = [];
   try {
     // Get typescript flag
     const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
@@ -41,9 +41,12 @@ const containerCreation = async (language) => {
     ]);
 
     // store working dir
-    wrokingDirectories.push(
-      `${commonInfo.containerPath}\\${containerName}`
+    // store working dir
+    const containerFullPath = path.join(
+      commonInfo.containerPath,
+      containerName
     );
+    workingDirectories.push(containerFullPath);
 
     // Go inside user specified dir
     process.chdir(commonInfo.containerPath);
@@ -70,7 +73,7 @@ const containerCreation = async (language) => {
       `${INFO_MESSAGE.SUCCESS.CONTAINER}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch {
-    utils.cleanupProject(wrokingDirectories);
+    utils.cleanupProject(workingDirectories);
   }
 };
 

@@ -15,9 +15,9 @@ export const QUESTION = {
   FORM_MANAGEMENT: "Select a form management library:",
   CONDITIONAL_MFE_NAME: "Enter your micro-frontend name:",
   CONTAINER_PATH:
-    "Please enter a path to create container:\ne.g: G:\\workspace\\sample-container\n:",
+    "Please enter a path to create container:\ne.g:\n for windows os: G:\\workspace\\sample-mfe ,\n for macOS/Linux: /Users/Me/workspace/sample-mfe\n:",
   MFE_PATH:
-    "Please enter a path to create microfront end:\ne.g: G:\\workspace\\sample-mfe\n:",
+    "Please enter a path to create microfront end:\ne.g:\n for windows os: G:\\workspace\\sample-mfe ,\n for macOS/Linux: /Users/Me/workspace/sample-mfe\n:",
   PATH: "Please enter a path to create ",
 };
 export const CHOICE_CONSTANTS = {

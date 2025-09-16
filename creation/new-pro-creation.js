@@ -1,3 +1,4 @@
+import path from "path";
 import inquirer from "inquirer";
 import {
   PROMPT,
@@ -9,7 +10,7 @@ import utils from "../utility.js";
 
 const newProjectCreation = async (language) => {
   // To store different working dir
-  const wrokingDirectories = [];
+  const workingDirectories = [];
   try {
     // Get typescript flag
     const isTypeScript = language === CHOICE_CONSTANTS.LANGUAGE.TYPE_SCRIPT;
@@ -47,9 +48,11 @@ const newProjectCreation = async (language) => {
     ]);
 
     // store working dir
-    wrokingDirectories.push(
-      `${commonInfo.containerPath}\\${projectInfo.projectName}`
+    const containerFullPath = path.join(
+      commonInfo.containerPath,
+      projectInfo.projectName
     );
+    workingDirectories.push(containerFullPath);
     // Go inside user specified dir
     process.chdir(commonInfo.containerPath);
 
@@ -76,7 +79,7 @@ const newProjectCreation = async (language) => {
 
       const mfeInfo = await inquirer.prompt([
         {
-          message: `${QUESTION.PATH}${mfeName} as microfront end\ne.g: G:\\workspace\\sample-mfe\n:`,
+          message: `${QUESTION.PATH}${mfeName} as microfront end\ne.g:\n for windows os: G:/workspace/sample-mfe ,\n for macOS/Linux: /Users/Me/workspace/sample-mfe\n:`,
           type: "input",
           name: "path",
         },
@@ -84,10 +87,9 @@ const newProjectCreation = async (language) => {
         ...PROMPT.COMMON,
       ]);
       // store working dir
-      wrokingDirectories.push(
-        `${mfeInfo.path}\\${mfeName}`
-      );
-      // Go inside user specified mfe dir
+      const mfeFullPath = path.join(mfeInfo.path, mfeName);
+      workingDirectories.push(mfeFullPath);
+       // Go inside user specified mfe dir
       process.chdir(mfeInfo.path);
       const mfeAppCommand = utils.getLanguageTemplate(mfeName, isTypeScript);
 
@@ -106,7 +108,7 @@ const newProjectCreation = async (language) => {
       `${INFO_MESSAGE.SUCCESS.NEW_PRO}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch {
-    utils.cleanupProject(wrokingDirectories);
+    utils.cleanupProject(workingDirectories);
   }
 };
 
