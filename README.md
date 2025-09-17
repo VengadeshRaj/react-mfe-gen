@@ -6,12 +6,12 @@ This tool uses the Runtime Integration approach — meaning each MFE is built as
 
 ## 🚀 Features:
 
-- Quickly set up a React microfront end base project.
-- Follows Runtime Integration best practices.
-- Outputs ready-to-execute code with fully dynamic, seamlessly integrated components..
-- Dynamically installs additional libraries based on user choices, such as state management, styling, and form handling.
-- Automatically cleans up any incomplete code if an unexpected issue occurs during the process.
-- Cross platform support(works on Windows, macOs and Linux)
+- Spin up a React Microfrontend Base in Seconds – No hassle, just code.
+- Built on Runtime Integration Best Practices – Seamless, scalable, and future-proof.
+- Generates Production-Ready Microfrontends – Pre-configured and good to go.
+- Smart Library Installer – Dynamically adds state management, styling, and form tools based on your choices.
+- Self-Healing Setup – Auto-cleans incomplete code if something breaks mid-process.
+- True Cross-Platform Compatibility – Works flawlessly on Windows, macOS, and Linux.
 
 ## 📦 Prerequisites:
 
