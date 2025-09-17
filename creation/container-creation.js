@@ -72,7 +72,8 @@ const containerCreation = async (language) => {
     console.log(
       `${INFO_MESSAGE.SUCCESS.CONTAINER}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
-  } catch {
+  } catch (e) {
+    console.log("Error:", e);
     utils.cleanupProject(workingDirectories);
   }
 };
