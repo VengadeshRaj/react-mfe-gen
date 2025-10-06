@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants.js";
-import utils from "../utility.js";
+import { utils } from "../utility.js";
 
 const singleMfeCreation = async (language) => {
   // To store different working dir
@@ -39,11 +39,11 @@ const singleMfeCreation = async (language) => {
       0
     );
 
-    console.log(
+    mfeGenLogger.successLog(
       `${INFO_MESSAGE.SUCCESS.ONE_MFE}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch (e) {
-    console.log("Error:", e);
+    mfeGenLogger.ErrorLog(`Error: ${e}`);
     utils.cleanupProject(workingDirectories);
   }
 };

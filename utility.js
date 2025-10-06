@@ -39,11 +39,11 @@ class utils {
   static async cleanupProject(dirs) {
     try {
       for (let i = 0; i < dirs.length; i++) {
-        console.log(`Cleaning up the project directory: ${dirs[i]}`);
+        mfeGenLogger.notifyLog(`Cleaning up the project directory: ${dirs[i]}`);
         await rm(dirs[i], { recursive: true });
       }
     } catch (err) {
-      console.log(`Failed to clean project directory\n Error:${err}`);
+      mfeGenLogger.ErrorLog(`Failed to clean project directory\n Error:${err}`);
     }
   }
 
@@ -224,4 +224,16 @@ class utils {
   }
 }
 
-export default utils;
+class mfeGenLogger {
+  static successLog(message) {
+    console.log(`\x1b[32m${message}\x1b[0m`);
+  }
+  static ErrorLog(message) {
+    console.log(`\x1b[31m${message}\x1b[0m`);
+  }
+  static notifyLog(message) {
+    console.log(`\x1b[33m${message}\x1b[0m`);
+  }
+}
+
+export { utils, mfeGenLogger };

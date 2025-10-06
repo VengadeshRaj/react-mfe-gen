@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants.js";
-import utils from "../utility.js";
+import { utils } from "../utility.js";
 
 const containerCreation = async (language) => {
   // To store different working dir

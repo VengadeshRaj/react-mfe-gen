@@ -1,9 +1,14 @@
 import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "./constants.js";
-import {newProjectCreation,containerCreation,singleMfeCreation} from "./creation/index.js";
+import {
+  newProjectCreation,
+  containerCreation,
+  singleMfeCreation,
+} from "./creation/index.js";
+import { mfeGenLogger } from "./utility.js";
 
 const mfeGen = async () => {
-  console.log(INFO_MESSAGE.DISCLAIMER);
+  mfeGenLogger.notifyLog(INFO_MESSAGE.DISCLAIMER);
 
   const { typeOfAction, language } = await inquirer.prompt(PROMPT.USER_NEED);
   switch (typeOfAction) {
