@@ -3,12 +3,13 @@ export const getmfeIndexContent=(mfeName='mfe',container:string,isTs:boolean)=>{
 import { createRoot } from "react-dom/client";
 import App from "./App";
 
-declare global {
+${isTs?`declare global {
   interface Window {
     render${mfeName}: (containerId${isTs?": string":""}, history${isTs?"?: any":""}) => void;
     unmount${mfeName}: (containerId${isTs?": string":""}) => void;
   }
-}
+}`:''}
+
 
 window.render${mfeName} = (containerId${isTs?": string":""}, history${isTs?"?: any":""}) => {
   const container${isTs?": any":""} = document.getElementById(containerId);

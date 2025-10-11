@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
 import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants/constants";
-import { utils } from "../utils/utility";
+import { mfeGenLogger, utils } from "../utils/utility";
 import path from "path";
 
-const containerCreation = async (language:string) => {
+const containerCreation = async (language: string) => {
   // To store different working dir
   const workingDirectories = [];
   try {
@@ -70,11 +70,11 @@ const containerCreation = async (language:string) => {
     );
 
     // Let user know container created status
-    console.log(
+    mfeGenLogger.successLog(
       `${INFO_MESSAGE.SUCCESS.CONTAINER}\n${INFO_MESSAGE.HAPPY_CODING}`
     );
   } catch (e) {
-    console.log("Error:", e);
+    mfeGenLogger.ErrorLog(`Error: ${e}`);
     utils.cleanupProject(workingDirectories);
   }
 };
