@@ -1,10 +1,13 @@
 {
   "name": "react-mfe-gen",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Generate React micro-frontends, containers, and projects using a simple CLI with runtime integration support.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "dev": "ts-node src/mfe-gen.ts",
+    "start": "tsc && node dist/mfe-gen.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,12 +25,11 @@
     "execa": "^9.6.0",
     "inquirer": "^12.9.4"
   },
-  "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "create-react-mfe": "./index.js"
+    "create-react-mfe": "dist/mfe-gen.js"
   },
   "keywords": [
     "react",
@@ -43,5 +45,15 @@
     "react-setup",
     "react-boilerplate",
     "runtime-integration"
-  ]
+  ],
+  "devDependencies": {
+    "@types/cli-spinner": "^0.2.3",
+    "@types/node": "^24.7.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.37.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

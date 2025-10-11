@@ -1,4 +1,4 @@
-export const getEnvContent = (mfes) => {
+export const getEnvContent = (mfes:string[]) => {
   let envTemplate = "";
 
   for (let i = 0; i < mfes.length; i++) {

@@ -1,3 +1,4 @@
+## Color codes for CLI logs:
 
 \x1b[31m → Red
 

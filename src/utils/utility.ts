@@ -6,23 +6,23 @@ import {
   LIBRARY_PAIR,
   DEFAULT_DEPENDENCIES,
   DEFAULT_DEV_DEPENDENCIES,
-} from "./constants.js";
+} from "../constants/constants";
 import {
   getHeartContent,
   getAppContent,
   getMfeCompContent,
   getContainerCompContent,
   getEnvContent,
-} from "./templates/container/index.js";
+} from "../templates/container";
 import { writeFile, unlink, mkdir, readFile, rm } from "fs/promises";
 import {
   getConfigOverridesContent,
   getMfeAppContent,
   getmfeIndexContent,
-} from "./templates/mfe/index.js";
+} from "../templates/mfe";
 
 class utils {
-  static async runTask(logMessage, task) {
+  static async runTask(logMessage: string, task: () => void) {
     const spinner = new Spinner(logMessage + "%s");
     spinner.setSpinnerString("⠋⠙⠹⠸⠼⠴⠦⠧⠏");
     spinner.setSpinnerDelay(40);
@@ -36,7 +36,7 @@ class utils {
     }
   }
 
-  static async cleanupProject(dirs) {
+  static async cleanupProject(dirs: string[]) {
     try {
       for (let i = 0; i < dirs.length; i++) {
         mfeGenLogger.notifyLog(`Cleaning up the project directory: ${dirs[i]}`);
@@ -47,7 +47,7 @@ class utils {
     }
   }
 
-  static async createReactApp(appCommand) {
+  static async createReactApp(appCommand: string[]) {
     try {
       await utils.runTask(INFO_MESSAGE.APP_CREATION, () =>
         execa("npx", ["create-react-app", ...appCommand])
@@ -57,7 +57,7 @@ class utils {
     }
   }
 
-  static async installPackages(packages, isDev = false) {
+  static async installPackages(packages: string[], isDev = false) {
     try {
       let message = INFO_MESSAGE.i_DEPENDENCIES;
       if (isDev) {
@@ -72,35 +72,35 @@ class utils {
     }
   }
 
-  static getLanguageTemplate(appName, isTs) {
+  static getLanguageTemplate(appName: string, isTs: boolean) {
     return isTs ? [appName, "--template", "typescript"] : [appName];
   }
 
-  static withExt(name, isTs) {
+  static withExt(name: string, isTs: boolean) {
     return isTs ? `${name}.tsx` : `${name}.jsx`;
   }
 
-  static withScript(name, isTs) {
+  static withScript(name: string, isTs: boolean) {
     return isTs ? `${name}.ts` : `${name}.js`;
   }
 
-  static toCompName(AppName) {
+  static toCompName(AppName: string) {
     return AppName.replace(/[-\s]+/g, " ")
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join("");
   }
 
-  static async updateScripts(dir, newScripts) {
-    const rawPackageJson = await readFile(dir);
-    const packageJSON = JSON.parse(rawPackageJson, "utf8");
+  static async updateScripts(dir: string, newScripts: any) {
+    const rawPackageJson: any = await readFile(dir);
+    const packageJSON = JSON.parse(rawPackageJson);
 
     packageJSON.scripts = newScripts;
 
     await writeFile(dir, JSON.stringify(packageJSON, null, 2), "utf8");
   }
 
-  static async configureContainer(info, mfeNames) {
+  static async configureContainer(info: any, mfeNames: string[]) {
     const {
       projectName,
       projectDescription,
@@ -136,6 +136,9 @@ class utils {
     await unlink("App.css");
     await unlink("logo.svg");
 
+    // Remove App.js file if template is javascript
+    if (!isTypeScript) await unlink("App.js");
+
     await mkdir("microfrontends");
 
     const mfeFolderPath = path.join(process.cwd(), "microfrontends");
@@ -165,7 +168,7 @@ class utils {
     console.log(`${projectName} created ✅\n`);
   }
 
-  static async configureMfe(info, mfeName, index) {
+  static async configureMfe(info: any, mfeName: string, index: number) {
     const {
       projectName,
       formManagement,
@@ -191,6 +194,12 @@ class utils {
     await unlink("App.css");
     await unlink("logo.svg");
     await unlink("index.css");
+
+    // Remove default js files if template is javascript
+    if (!isTypeScript) {
+      await unlink("App.js");
+      await unlink("index.js");
+    }
 
     process.chdir(path.resolve(mfeSrcPath, ".."));
 
@@ -225,13 +234,13 @@ class utils {
 }
 
 class mfeGenLogger {
-  static successLog(message) {
+  static successLog(message: string) {
     console.log(`\x1b[32m${message}\x1b[0m`);
   }
-  static ErrorLog(message) {
+  static ErrorLog(message: string) {
     console.log(`\x1b[31m${message}\x1b[0m`);
   }
-  static notifyLog(message) {
+  static notifyLog(message: string) {
     console.log(`\x1b[33m${message}\x1b[0m`);
   }
 }

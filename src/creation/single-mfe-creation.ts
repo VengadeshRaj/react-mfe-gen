@@ -1,8 +1,9 @@
 import inquirer from "inquirer";
-import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants.js";
-import { utils } from "../utility.js";
+import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "../constants/constants";
+import { mfeGenLogger, utils } from "../utils/utility";
+import path from "path";
 
-const singleMfeCreation = async (language) => {
+const singleMfeCreation = async (language:string) => {
   // To store different working dir
   const workingDirectories = [];
   try {
