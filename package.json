@@ -1,12 +1,11 @@
 {
   "name": "react-mfe-gen",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generate React micro-frontends, containers, and projects using a simple CLI with runtime integration support.",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "dev": "ts-node src/mfe-gen.ts",
     "start": "tsc && node dist/mfe-gen.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,7 +28,7 @@
     "access": "public"
   },
   "bin": {
-    "create-react-mfe": "dist/mfe-gen.js"
+    "create-react-mfe": "node dist/mfe-gen.js"
   },
   "keywords": [
     "react",
