@@ -1,4 +1,4 @@
-export const getmfeIndexContent=(mfeName='mfe',container='',isTs)=>{
+export const getmfeIndexContent=(mfeName='mfe',container:string,isTs:boolean)=>{
     return`import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";

@@ -1,6 +1,6 @@
-import { utils } from "../../utility.js";
+import { utils } from "../../utils/utility";
 
-export const getContainerCompContent = (containerCompName, mfes) => {
+export const getContainerCompContent = (containerCompName:string, mfes:string[]) => {
   let containerComp = `import React from "react";\n`;
 
   for (let i = 0; i < mfes.length; i++) {

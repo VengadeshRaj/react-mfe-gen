@@ -1,11 +1,11 @@
 import inquirer from "inquirer";
-import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "./constants.js";
+import { PROMPT, INFO_MESSAGE, CHOICE_CONSTANTS } from "./constants/constants";
 import {
   newProjectCreation,
   containerCreation,
   singleMfeCreation,
 } from "./creation/index.js";
-import { mfeGenLogger } from "./utility.js";
+import { mfeGenLogger } from "./utils/utility";
 
 const mfeGen = async () => {
   mfeGenLogger.notifyLog(INFO_MESSAGE.DISCLAIMER);
@@ -24,4 +24,4 @@ const mfeGen = async () => {
   }
 };
 
-export default mfeGen;
+mfeGen();

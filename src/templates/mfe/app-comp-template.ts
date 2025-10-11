@@ -1,4 +1,4 @@
-export const getMfeAppContent=(mfeName='mfe',isTs)=>{
+export const getMfeAppContent=(mfeName='mfe',isTs:boolean)=>{
     return`import React from 'react';
 
 function App(prop${isTs ? ": any" : ""}) {

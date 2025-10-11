@@ -1,4 +1,6 @@
-export const QUESTION = {
+import { Constant } from "../types/type";
+
+export const QUESTION:Constant = {
   ACTION: "Select an action:",
   LANGUAGE: "Choose your preferred language:",
   PROJECT_NAME: "Enter your project name:",
@@ -20,7 +22,7 @@ export const QUESTION = {
     "Please enter a path to create microfront end:\ne.g:\n for windows os: G:\\workspace\\sample-mfe ,\n for macOS/Linux: /Users/Me/workspace/sample-mfe\n:",
   PATH: "Please enter a path to create ",
 };
-export const CHOICE_CONSTANTS = {
+export const CHOICE_CONSTANTS:Constant = {
   ACTION: {
     NEW_PROJECT: "Create a new project 🚀",
     CONTAINER: "Create only a container 📦",
@@ -48,7 +50,7 @@ export const CHOICE_CONSTANTS = {
   NONE: "None ❌",
 };
 
-export const CHOICES = {
+export const CHOICES:Constant = {
   ACTION: [
     CHOICE_CONSTANTS.ACTION.NEW_PROJECT,
     CHOICE_CONSTANTS.ACTION.CONTAINER,
@@ -78,7 +80,7 @@ export const CHOICES = {
   ],
 };
 
-export const PROMPT = {
+export const PROMPT:Constant = {
   USER_NEED: [
     {
       message: QUESTION.ACTION,
@@ -98,7 +100,7 @@ export const PROMPT = {
       message: QUESTION.PROJECT_NAME,
       type: "input",
       name: "projectName",
-      validate(value) {
+      validate(value: string) {
         if (!/^[a-z-]+$/.test(value)) {
           return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
         }
@@ -114,7 +116,7 @@ export const PROMPT = {
       type: "input",
       name: "numberOfMfes",
       message: QUESTION.NUMBER_OF_MFES,
-      validate(value) {
+      validate(value: string) {
         const isNumber = !Number.isNaN(Number.parseFloat(value));
         return isNumber || "Please enter a valid number";
       },
@@ -126,7 +128,7 @@ export const PROMPT = {
       message: QUESTION.MFE_NAME,
       type: "input",
       name: "mfeName",
-      validate(value) {
+      validate(value: string) {
         if (!/^[a-z-]+$/.test(value)) {
           return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
         }
@@ -144,7 +146,7 @@ export const PROMPT = {
       message: QUESTION.CONTAINER_NAME,
       type: "input",
       name: "containerName",
-      validate(value) {
+      validate(value: string) {
         if (!/^[a-z-]+$/.test(value)) {
           return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
         }
@@ -160,7 +162,7 @@ export const PROMPT = {
       type: "input",
       name: "numberOfMfes",
       message: QUESTION.NUMBER_OF_MFES,
-      validate(value) {
+      validate(value: string) {
         const isNumber = !Number.isNaN(Number.parseFloat(value));
         return isNumber || "Please enter a valid number";
       },
@@ -186,7 +188,7 @@ export const PROMPT = {
       message: QUESTION.CONDITIONAL_MFE_NAME,
       type: "input",
       name: "mfeName",
-      validate(value) {
+      validate(value: string) {
         if (!/^[a-z-]+$/.test(value)) {
           return "Please use only lowercase letters and '-' (numbers, capital letters, and other symbols are not allowed).";
         }
@@ -208,11 +210,6 @@ export const PROMPT = {
       type: "input",
       name: "path",
     },
-    MICROFRONT_END_NAME: {
-      message: QUESTION.CONDITIONAL_MFE_NAME,
-      type: "input",
-      name: "mfeName",
-    },
     FORM_MANAGEMENT: {
       message: QUESTION.FORM_MANAGEMENT,
       type: "list",
@@ -222,7 +219,7 @@ export const PROMPT = {
   },
 };
 
-export const INFO_MESSAGE = {
+export const INFO_MESSAGE:Constant = {
   DISCLAIMER:
     "Hello there! 👋\n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection ⚙️.\nPlease keep this limitation in mind when developing your MFE applications 📌.\n",
   CREATE_APP: "Let's create ",
@@ -238,7 +235,7 @@ export const INFO_MESSAGE = {
   HAPPY_CODING: "Happy coding! 💻✨",
 };
 
-export const LIBRARY_PAIR = {
+export const LIBRARY_PAIR:Constant = {
   STYLING: {
     [CHOICE_CONSTANTS.STYLING.TAILWIND]: [
       "tailwindcss",

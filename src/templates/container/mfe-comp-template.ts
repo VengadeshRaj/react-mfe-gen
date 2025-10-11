@@ -1,4 +1,4 @@
-export const getMfeCompContent = (mfeName, isTypeScript) => {
+export const getMfeCompContent = (mfeName:string, isTypeScript:boolean) => {
   return `import MicroFrontend from "../MicroFrontend";
 
 export const ${mfeName} = (props${isTypeScript ? ": any" : ""}) => {

@@ -5,10 +5,10 @@ import {
   INFO_MESSAGE,
   QUESTION,
   CHOICE_CONSTANTS,
-} from "../constants.js";
-import { utils, mfeGenLogger } from "../utility.js";
+} from "../constants/constants";
+import { utils, mfeGenLogger } from "../utils/utility";
 
-const newProjectCreation = async (language) => {
+const newProjectCreation = async (language:string) => {
   // To store different working dir
   const workingDirectories = [];
   try {
