@@ -1,6 +1,6 @@
 {
   "name": "react-mfe-gen",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Generate React micro-frontends, containers, and projects using a simple CLI with runtime integration support.",
   "main":  "dist/mfe-gen.js",
   "scripts": {
