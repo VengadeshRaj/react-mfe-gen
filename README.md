@@ -25,4 +25,8 @@ Node.js installed (latest LTS recommended).
 - Run the CLI
     `create-react-mfe`
 
+- You will see the below message in your terminal
+
+![react-mfe-gen](./images/react-mfe-gen.png)
+
 - Answer the prompts to generate your project, container, or micro-frontend.
