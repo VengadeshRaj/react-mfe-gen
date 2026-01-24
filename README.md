@@ -2,8 +2,6 @@
 
 <strong style="color:orange">⚠️ Important:</strong> Install this package globally using `npm install -g` to use the CLI anywhere on your system.
 
-![react-mfe-gen-package](./images/react-mfe-gen-package.png)
-
 react-mfe-gen is a CLI tool that helps you quickly scaffold a base setup for React Micro-Frontend (MFE) architecture.
 
 This tool uses the Runtime Integration approach — meaning each MFE is built as a Web Component and integrated dynamically at runtime. This keeps your applications modular, scalable, and independent.
