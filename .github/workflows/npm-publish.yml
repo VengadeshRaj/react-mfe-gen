@@ -60,4 +60,4 @@ jobs:
       # Publish only if version changed
       - name: Publish to npm
         if: steps.version_check.outputs.publish == 'true'
-        run: npm publish --access public
+        run: npm publish --access public --provenance
