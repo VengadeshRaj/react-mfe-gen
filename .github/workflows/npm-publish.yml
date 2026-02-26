@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
-      
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,15 +44,17 @@ jobs:
           echo "CURR_VERSION=$CURR_VERSION" >> $GITHUB_ENV
 
       - name: Check version change
+        id: version_check
         run: |
           echo "Previous version: $PREV_VERSION"
           echo "Current version: $CURR_VERSION"
           if [ "$PREV_VERSION" = "$CURR_VERSION" ]; then
             echo "Version not changed. Skipping publish."
-            exit 0
+            echo "publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "publish=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Publish to npm
+        if: steps.version_check.outputs.publish == 'true'
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
