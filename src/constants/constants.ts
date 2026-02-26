@@ -24,30 +24,30 @@ export const QUESTION:Constant = {
 };
 export const CHOICE_CONSTANTS:Constant = {
   ACTION: {
-    NEW_PROJECT: "Create a new project 🚀",
-    CONTAINER: "Create only a container 📦",
-    SINGLE_MFE: "Create a single micro-frontend 🌐",
+    NEW_PROJECT: "Create a new project",
+    CONTAINER: "Create only a container",
+    SINGLE_MFE: "Create a single micro-frontend",
   },
   STYLING: {
-    SASS: "Sass 🎨",
-    TAILWIND: "Tailwind 🌊",
-    MATERIAL_UI: "Material UI 🧩",
-    BOOTSTRAP: "Bootstrap 🥾",
-    STYLED_COMPONENTS: "Styled Components ✍️",
+    SASS: "Sass",
+    TAILWIND: "Tailwind",
+    MATERIAL_UI: "Material UI",
+    BOOTSTRAP: "Bootstrap",
+    STYLED_COMPONENTS: "Styled Components",
   },
   LANGUAGE: {
-    JAVA_SCRIPT: "JavaScript 🟨",
-    TYPE_SCRIPT: "TypeScript 🔷",
+    JAVA_SCRIPT: "JavaScript",
+    TYPE_SCRIPT: "TypeScript",
   },
   STATE_MANAGEMENT: {
-    REDUX: "Redux 🔄",
-    ZUSTAND: "Zustand 🐻",
+    REDUX: "Redux",
+    ZUSTAND: "Zustand",
   },
   FORM_MANAGEMENT: {
-    REACT_HOOK_FORM: "React-hook-form 🪝",
-    FORMIK: "Formik 📝",
+    REACT_HOOK_FORM: "React-hook-form",
+    FORMIK: "Formik",
   },
-  NONE: "None ❌",
+  NONE: "None",
 };
 
 export const CHOICES:Constant = {
@@ -221,18 +221,18 @@ export const PROMPT:Constant = {
 
 export const INFO_MESSAGE:Constant = {
   DISCLAIMER:
-    "Hello there! 👋\n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection ⚙️.\nPlease keep this limitation in mind when developing your MFE applications 📌.\n",
+    "Hello there! \n\nThis tool currently supports micro-frontend creation using runtime integration via custom script injection .\nPlease keep this limitation in mind when developing your MFE applications.\n",
   CREATE_APP: "Let's create ",
-  CONFIGURE_CONTAINER: "Configuring the container... 🛠️",
-  APP_CREATION: "Creating your React app... ⚛️  ",
-  i_DEPENDENCIES: "Installing dependencies... 📦  ",
-  i_DEV_DEPENDENCIES: "Installing dev dependencies... 🧩  ",
+  CONFIGURE_CONTAINER: "Configuring the container...",
+  APP_CREATION: "Creating your React app...",
+  i_DEPENDENCIES: "Installing dependencies...",
+  i_DEV_DEPENDENCIES: "Installing dev dependencies...",
   SUCCESS: {
-    NEW_PRO: "New project created successfully! 🎉",
-    CONTAINER: "Container created successfully! 📦",
-    ONE_MFE: "Microfront end created successfully! 🌐",
+    NEW_PRO: "New project created successfully!",
+    CONTAINER: "Container created successfully!",
+    ONE_MFE: "Microfront end created successfully!",
   },
-  HAPPY_CODING: "Happy coding! 💻✨",
+  HAPPY_CODING: "Happy coding!",
 };
 
 export const LIBRARY_PAIR:Constant = {
