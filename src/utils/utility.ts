@@ -165,7 +165,7 @@ class utils {
 
     await writeFile("README.md", `# ${projectName}\n${projectDescription}`);
 
-    console.log(`${projectName} created ✅\n`);
+    console.log(`${projectName} created\n`);
   }
 
   static async configureMfe(info: any, mfeName: string, index: number) {

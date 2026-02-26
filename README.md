@@ -31,4 +31,4 @@ Node.js installed (latest LTS recommended).
 
 ![react-mfe-gen](./images/react-mfe-gen.png)
 
-- Answer the prompts to generate your project, container, or micro-frontend.
+-That's it! Answer the prompts to generate your project, container, or micro-frontend.
