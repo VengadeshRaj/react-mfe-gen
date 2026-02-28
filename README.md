@@ -29,6 +29,6 @@ Node.js installed (latest LTS recommended).
 
 - You will see the below message in your terminal
 
-![react-mfe-gen](./images/react-mfe-gen.png)
+![react-mfe-gen](./images/react-mfe-gen-image.png)
 
--That's it! Answer the prompts to generate your project, container, or micro-frontend.
+- That's it! Answer the prompts to generate your project, container, or micro-frontend.
